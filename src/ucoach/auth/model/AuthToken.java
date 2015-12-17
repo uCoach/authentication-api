@@ -98,12 +98,12 @@ public class AuthToken implements Serializable{
 	        return at;
 	 }
 	 
-	 public void generateNewRandonCode(){
+	 public void generateNewRandonToken(){
 		 SecureRandom random = new SecureRandom();
 		 String randonToken = new BigInteger(130, random).toString(64);
 		 this.setToken(randonToken);
 	 }
-
+	 
 	/*
 	public static List<AuthToken> getAll() {
 		EntityManager em = AuthDao.instance.createEntityManager();

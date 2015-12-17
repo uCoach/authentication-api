@@ -103,7 +103,7 @@
                 </fileset>
             </copy>
         </target>
-        <target name="start" depends="install">
+        <target name="start">
             <echo message="app start auth.Main in ${build.dir}" />
             <java classname="Test" classpath="${build.dir}" fork="true">
                 <arg value="$JAVA_OPTS  -cp" />
@@ -115,8 +115,21 @@
                     </fileset>
                 </classpath>
             </java>
+        	
         </target>
-        
+    	<target name="goClient">
+            <echo message="app start auth.Main in ${build.dir}" />
+            <java classname="PeopleClient" classpath="${build.dir}" fork="true">
+                <arg value="$JAVA_OPTS  -cp" />
+                <classpath>
+                    <path location="build" />
+                    <fileset dir="WebContent/WEB-INF/lib">
+                        <include name="**/*.jar" />
+                        <include name="*.jar" />
+                    </fileset>
+                </classpath>
+            </java>
+        </target>
         
         <!-- make sure you have created first the WebContent folder, including a META-INF folder, WEB-INF/web.xml file and WEB-INF/lib folder -->
         <target name="create.war" depends="install">
