@@ -6,7 +6,7 @@ import java.security.SecureRandom;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
-
+import javax.xml.bind.annotation.XmlRootElement;
 
 import ucoach.auth.dao.*;
 
@@ -14,6 +14,7 @@ import ucoach.auth.dao.*;
 @Entity
 @NamedQuery(name="AuthToken.findAll", query="SELECT t FROM AuthToken t")
 @Table(name = "tokens")
+@XmlRootElement
 public class AuthToken implements Serializable{
 	@Id
 	@GeneratedValue(generator="mysql_authtoken")

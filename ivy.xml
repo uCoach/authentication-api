@@ -30,6 +30,21 @@
         <dependency org="com.sun.xml.ws" name="jaxws-rt" rev="2.2.8"/>
 	
         <!-- Other dependencies -->
+        <dependency org="javax.xml.bind" name="jaxb-api" rev="2.2.11"/>
+        <dependency org="com.sun.xml.bind" name="jaxb-impl" rev="2.2.7"/>
+        <dependency org="com.sun.xml.bind" name="jaxb-xjc" rev="2.2.7"/>
+        <dependency org="javax.servlet" name="javax.servlet-api" rev="3.1.0"/>
+        <dependency org="org.glassfish.jersey.core" name="jersey-common" rev="2.11"/>
+        <dependency org="org.glassfish.jersey.core" name="jersey-server" rev="2.11"/>
+        <dependency org="org.glassfish.jersey.core" name="jersey-client" rev="2.11"/>
+        <dependency org="org.glassfish.jersey.containers" name="jersey-container-servlet" rev="2.11"/>
+        <dependency org="org.glassfish.jersey.containers" name="jersey-container-jetty-http" rev="2.11"/>
+        <dependency org="org.glassfish.jersey.containers" name="jersey-container-jdk-http" rev="2.11"/>
+            
+        <dependency org="com.fasterxml.jackson.core" name="jackson-core" rev="2.4.2">
+            <artifact name="jackson-core" type="jar"/>
+        </dependency>
+        
         <dependency org="mysql" name="mysql-connector-java" rev="5.1.6"/>
         <dependency org="javax.ejb" name="javax.ejb-api" rev="3.2"/>
         <dependency org="org.eclipse.persistence" name="javax.persistence" rev="2.1.0"/>

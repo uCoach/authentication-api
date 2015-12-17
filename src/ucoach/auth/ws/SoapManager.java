@@ -13,13 +13,15 @@ import javax.xml.ws.Service;
 public class SoapManager{
 
 	
-	public String login(long userName, String criptedPassword) throws MalformedURLException{
+	public AuthToken login(String userName, String criptedPassword) throws MalformedURLException{
 			URL url = new URL("https://frozen-shore-6890.herokuapp.com/ws/people?wsdl");
 			QName qname = new QName("http://ws.soap.assignment.introsde/", "PeopleService");
 		 	Service service = Service.create(url, qname);	        
-	        People people = service.getPort(People.class);	        	        
+	        People people = service.getPort(People.class);	   
+	        
+	        
 	        try{
-	        	Person p = people.readPerson(userName);
+	        	Person p = people.readPerson(Long.parseLong(userName));
 	        	
 	        	if(p.getFirstname().equals(criptedPassword) ){
 	        		AuthToken at = new AuthToken();
@@ -27,7 +29,7 @@ public class SoapManager{
 	        		at.setCreated(new Date());
 	        		at.generateNewRandonToken();
 	        		at = AuthToken.saveToken(at);
-	        		return at.getToken();
+	        		return at;
 	        	}
 	        	return null;
 	        	

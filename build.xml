@@ -105,7 +105,7 @@
         </target>
         <target name="start">
             <echo message="app start auth.Main in ${build.dir}" />
-            <java classname="Test" classpath="${build.dir}" fork="true">
+            <java classname="ucoach.auth.rest.App" classpath="${build.dir}" fork="true">
                 <arg value="$JAVA_OPTS  -cp" />
                 <classpath>
                     <path location="build" />
