@@ -5,10 +5,14 @@ import java.util.Date;
 import java.util.List;
 
 import ucoach.auth.model.*;
-import ucoach.auth.ws.SoapManager;
+import ucoach.auth.restclient.ClientApp;
+import ucoach.auth.soap.SoapManager;
 
 public class Test {
 	public static void main(String[] args) throws Exception{
+		ClientApp capp = new ClientApp();
+		capp.login("euhauehaue", "aueheuaheua");
+		System.out.println("auheauheuaheua");
 		//System.out.println("oioioioi");
 		//AuthToken token = AuthToken.getTokenByPerson(1, "theToken");
 		//System.out.println(token.getId());

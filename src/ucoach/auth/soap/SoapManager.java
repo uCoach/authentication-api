@@ -1,4 +1,4 @@
-package ucoach.auth.ws;
+package ucoach.auth.soap;
 
 import introsde.assignment.soap.ws.*;
 import ucoach.auth.model.AuthToken;

@@ -119,7 +119,7 @@
         </target>
     	<target name="goClient">
             <echo message="app start auth.Main in ${build.dir}" />
-            <java classname="PeopleClient" classpath="${build.dir}" fork="true">
+            <java classname="Test" classpath="${build.dir}" fork="true">
                 <arg value="$JAVA_OPTS  -cp" />
                 <classpath>
                     <path location="build" />

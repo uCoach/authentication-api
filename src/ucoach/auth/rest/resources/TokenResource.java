@@ -1,6 +1,7 @@
 package ucoach.auth.rest.resources;
 import ucoach.auth.model.*;
-import ucoach.auth.ws.SoapManager;
+import ucoach.auth.restclient.ClientApp;
+import ucoach.auth.soap.SoapManager;
 
 import java.net.MalformedURLException;
 
@@ -27,8 +28,10 @@ public class TokenResource {
 	
 	@POST
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public AuthToken login(Login l) throws MalformedURLException{
-		SoapManager sm = new SoapManager();		
-		return sm.login(l.getUserName(), l.getPassword());
+	
+	public AuthToken login(Login l) throws Exception{
+		System.out.println("ENTROU");
+		ClientApp ca = new ClientApp();		
+		return ca.login(l.getUserName(), l.getPassword());
 	}
 }
