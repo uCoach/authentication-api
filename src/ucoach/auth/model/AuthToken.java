@@ -117,6 +117,7 @@ public class AuthToken implements Serializable{
 	
 	public static AuthToken saveToken(AuthToken t) {
 		try{
+			//System.out.println("SAVING");
 			EntityManager em = AuthDao.instance.createEntityManager();
 			EntityTransaction tx = em.getTransaction();
 			tx.begin();
@@ -143,7 +144,7 @@ public class AuthToken implements Serializable{
 	    return t;
 	}
 	
-	public static void removeLifeStatus(AuthToken t) {
+	public static void removeAuthToken(AuthToken t) {
 		EntityManager em = AuthDao.instance.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();

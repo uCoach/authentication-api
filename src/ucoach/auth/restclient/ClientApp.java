@@ -61,6 +61,7 @@ public class ClientApp {
 				at.setuId(0);
 				at.setToken("REFUSED");
 			}
+			//System.out.println("ACCEPTED");
 			return at;	
 		}catch(Exception e){
 			System.out.println(e);
