@@ -4,6 +4,7 @@ package ucoach.auth.restclient;
 
 import java.net.URI;
 
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -11,10 +12,12 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import javax.ws.rs.client.Invocation.Builder;
+
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
-public class PersonClient {
+public class UserClient {
 
 	private final transient Client client;
 	private final transient WebTarget baseTarget;
@@ -23,73 +26,32 @@ public class PersonClient {
 	 * Class constructor
 	 * @param serviceUrl
 	 */
-	public PersonClient(URI serviceUrl) {
+	public UserClient(URI serviceUrl) {
 		ClientConfig config = new ClientConfig().register(new JacksonFeature());
         client = ClientBuilder.newClient(config);
         baseTarget = client.target(serviceUrl);
+        
 	}
 
-	/**
-	 * Get all people in XML format
-	 * @return
-	 */
-	public Response getAllPeopleXml() {
-		WebTarget target = baseTarget
-				.path("person");
 
-		return fetchGetResponse(target, MediaType.APPLICATION_XML);
-	}
-
-	/**
-	 * Get all people in JSON format
-	 * @return
-	 */
-	public Response getAllPeopleJson() {
-		WebTarget target = baseTarget
-				.path("person");
-
-		return fetchGetResponse(target, MediaType.APPLICATION_JSON);
-	}
-
-	/**
-	 * Get person by id in XML format
-	 * @param personId
-	 * @return
-	 */
-	public Response getPersonXml(int personId) {
-		WebTarget target = baseTarget
-				.path("person")
-				.path(Integer.toString(personId));
-
-		return fetchGetResponse(target, MediaType.APPLICATION_XML);
-	}
+	
 
 	/**
 	 * Get person by id in JSON format
 	 * @param personId
 	 * @return
 	 */
-	public Response getPersonJson(int personId) {
+	public Response getUserJson(String user) {
+		
 		WebTarget target = baseTarget
-				.path("person")
-				.path(Integer.toString(personId));
-
+				.path("user")
+				.path("email")
+				.path(user);
+		
 		return fetchGetResponse(target, MediaType.APPLICATION_JSON);
 	}
 	
-	/**
-	 * Update person by id in XML
-	 * @param personId
-	 * @param body
-	 * @return
-	 */
-	public Response putPersonXml(int personId, String body) {
-		WebTarget target = baseTarget
-				.path("person")
-				.path(Integer.toString(personId));
-		
-		return fetchPutResponse(target, body, MediaType.APPLICATION_XML);
-	}
+	
 	
 	/**
 	 * Update person by id in JSON
@@ -151,7 +113,10 @@ public class PersonClient {
 	 * @return
 	 */
 	private Response fetchGetResponse(final WebTarget target, String mediaType) {
-		return target.request().accept(mediaType).get();
+		Builder builder = target.request().accept(mediaType);
+		Authorization.authorizeRequest(builder);
+		return builder.get();
+		//return target.request().accept(mediaType).get();
 	}
 	
 	/**

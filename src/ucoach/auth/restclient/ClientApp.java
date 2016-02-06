@@ -39,34 +39,37 @@ public class ClientApp {
 
 	public static Class<String> stringClass = String.class;
 
-	public static PersonClient personClient = new PersonClient(getBaseURI());
+	public static UserClient personClient = new UserClient(getBaseURI());
 	
 
-	public AuthToken login(String userName, String criptedPassword) throws Exception{
+	public Response login(String userName, String criptedPassword) throws Exception{
+		Response r;
 		accept = "application/json";
 		try{
-			response = personClient.getPersonJson(Integer.parseInt(userName));		
+			response = personClient.getUserJson(userName);
+			if (response.getStatus()==404)
+				return Response.status(401).build();
 			bodyJson = fetchObjectFromResponse(response, stringClass);
+			System.out.println(bodyJson);
 			jsonParser.loadJson(bodyJson);
-			String personName = jsonParser.getElement("firstname");
 			long personId = Long.parseLong(jsonParser.getElement("id"));
+			String dbPassword = jsonParser.getElement("password");
 			AuthToken at = new AuthToken();
 			System.out.println(personId);
-			if(personName.equals(criptedPassword) ){
+			if(dbPassword.equals(criptedPassword) ){
 				at.setuId(personId);
 				at.setCreated(new Date());
 				at.generateNewRandonToken();
 				at = AuthToken.saveToken(at);
+				r = Response.accepted(at).build();
+				
 			}else{
-				at.setuId(0);
-				at.setToken("REFUSED");
+				r = Response.status(401).build();
 			}
-			//System.out.println("ACCEPTED");
-			return at;	
 		}catch(Exception e){
-			System.out.println(e);
-			return null;
+			r = Response.status(501).build();
 		}
+		return r;
 		
 		
 		
@@ -139,6 +142,6 @@ public class ClientApp {
 	 * @return
 	 */
     private static URI getBaseURI() {
-        return UriBuilder.fromUri("https://powerful-thicket-8477.herokuapp.com").build();
+        return UriBuilder.fromUri("http://192.168.0.100:5000/data/").build();
     }
 }

@@ -2,11 +2,13 @@ package ucoach.auth.model;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.security.MessageDigest;
 
 import ucoach.auth.dao.*;
 
@@ -99,21 +101,26 @@ public class AuthToken implements Serializable{
 	        return at;
 	 }
 	 
-	 public void generateNewRandonToken(){
-		 SecureRandom random = new SecureRandom();
-		 String randonToken = new BigInteger(130, random).toString(64);
-		 this.setToken(randonToken);
+	 public void generateNewRandonToken() throws Exception{
+		Date date = new Date();
+		String content = ""+ uId + "secret" + date;
+		content = content.replaceAll("\\s","");
+		
+	    	
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        md.update(content.getBytes());
+        
+        byte byteData[] = md.digest();
+ 
+        //convert the byte to hex format method 1
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < byteData.length; i++) {
+         sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+        }
+       
+        this.setToken(sb.toString());
 	 }
 	 
-	/*
-	public static List<AuthToken> getAll() {
-		EntityManager em = AuthDao.instance.createEntityManager();
-	    List<AuthToken> list = em.createNamedQuery("AuthToken.findAll", AuthToken.class).getResultList();
-	    AuthDao.instance.closeConnections(em);
-	    return list;
-	}*/
-	 
-	
 	
 	public static AuthToken saveToken(AuthToken t) {
 		try{
@@ -126,7 +133,6 @@ public class AuthToken implements Serializable{
 			AuthDao.instance.closeConnections(em);
 		    return t;
 		}catch(Exception e){
-			System.out.println(e);
 			return null;
 		}
 		
