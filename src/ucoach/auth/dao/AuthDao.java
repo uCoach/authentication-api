@@ -23,7 +23,7 @@ public enum AuthDao {
        String password = st.nextToken();
        String host = st.nextToken();
        String databaseName = st.nextToken();
-       String jdbcUrl = String.format("jdbc:%s://%s/%s", dbVendor, host, databaseName);
+       String jdbcUrl = String.format("jdbc:%s://%s/%s?reconnect=true", dbVendor, host, databaseName);
        properties.put("hibernate.connection.url", jdbcUrl);
        properties.put("hibernate.connection.username", username);
        properties.put("hibernate.connection.password", password);
