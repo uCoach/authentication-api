@@ -1,0 +1,9 @@
+/bin/
+/build
+/ivy
+.DS_Store
+*.jar
+*.DS_Store
+.project
+.classpath
+*.settings

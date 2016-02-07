@@ -141,6 +141,6 @@
             </war>
         </target>
 
-        <target name="go" depends="clean, install, start">
+        <target name="run" depends="clean, install, start">
         </target>
     </project>
