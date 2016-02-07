@@ -32,12 +32,10 @@ public class UserClient {
         baseTarget = client.target(serviceUrl);
         
 	}
-
-
 	
 
 	/**
-	 * Get person by id in JSON format
+	 * Get person by email in JSON format
 	 * @param personId
 	 * @return
 	 */
@@ -52,59 +50,6 @@ public class UserClient {
 	}
 	
 	
-	
-	/**
-	 * Update person by id in JSON
-	 * @param personId
-	 * @param body
-	 * @return
-	 */
-	public Response putPersonJson(int personId, String body) {
-		WebTarget target = baseTarget
-				.path("person")
-				.path(Integer.toString(personId));
-		
-		return fetchPutResponse(target, body, MediaType.APPLICATION_JSON);
-	}
-	
-	/**
-	 * Update person by id in XML
-	 * @param personId
-	 * @param body
-	 * @return
-	 */
-	public Response postNewPersonXml(String body) {
-		WebTarget target = baseTarget
-				.path("person");
-		
-		return fetchPostResponse(target, body, MediaType.APPLICATION_XML);
-	}
-	
-	/**
-	 * Update person by id in JSON
-	 * @param personId
-	 * @param body
-	 * @return
-	 */
-	public Response postNewPersonJson(String body) {
-		WebTarget target = baseTarget
-				.path("person");
-		
-		return fetchPostResponse(target, body, MediaType.APPLICATION_JSON);
-	}
-	
-	/**
-	 * Delete person by id
-	 * @param personId
-	 * @return
-	 */
-	public Response deletePerson(int personId) {
-		WebTarget target = baseTarget
-				.path("person")
-				.path(Integer.toString(personId));
-
-		return target.request().delete();
-	}
 
 	/**
 	 * 

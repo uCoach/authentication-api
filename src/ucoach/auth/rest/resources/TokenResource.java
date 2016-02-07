@@ -22,7 +22,7 @@ public class TokenResource {
 	public Response login(Login l) throws Exception{
 		
 		ClientApp ca = new ClientApp();		
-		return ca.login(l.getUserName(), l.getPassword());
+		return ca.login(l.getUsername(), l.getPassword());
 	}
 }
 

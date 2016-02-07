@@ -30,7 +30,7 @@ public class AuthToken implements Serializable{
 	private String token;
 	
 	@Column(name = "user_id")
-	private long uId;
+	private long userid;
 	
 	
 	@Column(name = "created")
@@ -42,7 +42,7 @@ public class AuthToken implements Serializable{
 		super();
 		this.id = id;
 		this.token = token;
-		this.uId = uId;
+		this.userid = uId;
 		this.created = created;
 	}
 	public AuthToken(){
@@ -60,11 +60,11 @@ public class AuthToken implements Serializable{
 	public void setToken(String token) {
 		this.token = token;
 	}
-	public long getuId() {
-		return uId;
+	public long getUserid() {
+		return userid;
 	}
-	public void setuId(long uId) {
-		this.uId = uId;
+	public void setUserid(long uId) {
+		this.userid = uId;
 	}
 	
 	public Date getCreated() {
@@ -79,6 +79,26 @@ public class AuthToken implements Serializable{
 	        AuthToken t = em.find(AuthToken.class, tokenId);
 	        AuthDao.instance.closeConnections(em);
 	        return t;
+	 }
+	 
+	 public static AuthToken getIdPersonByToken(String token){
+		 EntityManager em = AuthDao.instance.createEntityManager();
+	        AuthToken at = new AuthToken();
+	        try{
+	        	//SELECT THE LAST ENTRY WITH THE GIVEN USER ID AND TOKEN
+	             at = (AuthToken) em.createQuery(        
+	            "SELECT at FROM AuthToken at WHERE at.token = :token ORDER BY at.id DESC")
+	            .setParameter("token", token).setMaxResults(1)
+	            .getSingleResult();
+	             System.out.println(at);
+	        }catch(Exception e){
+	            System.out.println("Error"+e);
+	            return null;
+	            
+	        }
+	        
+	        AuthDao.instance.closeConnections(em);
+	        return at;
 	 }
 	 
 	 public static AuthToken getTokenByPerson(long personId, String token) {
@@ -103,7 +123,7 @@ public class AuthToken implements Serializable{
 	 
 	 public void generateNewRandonToken() throws Exception{
 		Date date = new Date();
-		String content = ""+ uId + "secret" + date;
+		String content = ""+ userid + "secret" + date;
 		content = content.replaceAll("\\s","");
 		
 	    	

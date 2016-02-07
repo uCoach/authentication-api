@@ -57,7 +57,7 @@ public class ClientApp {
 			AuthToken at = new AuthToken();
 			System.out.println(personId);
 			if(dbPassword.equals(criptedPassword) ){
-				at.setuId(personId);
+				at.setUserid(personId);
 				at.setCreated(new Date());
 				at.generateNewRandonToken();
 				at = AuthToken.saveToken(at);

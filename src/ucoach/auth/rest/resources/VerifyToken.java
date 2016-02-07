@@ -34,7 +34,7 @@ public class VerifyToken {
     public RestToken getPerson(@PathParam("token") String token) {
         RestToken rt = new RestToken();
         rt.setToken(token);
-        rt.setId("123456");
+        rt.setId(""+AuthToken.getIdPersonByToken(token).getUserid());
 		return rt;
     }
 	

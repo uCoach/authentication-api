@@ -15,8 +15,6 @@ public class RestToken {
 		return id;
 	}
 	
-	
-
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -24,8 +22,6 @@ public class RestToken {
 	public String getToken() {
 		return token;
 	}
-	
-	
 
 	public void setToken(String token) {
 		this.token = token;
