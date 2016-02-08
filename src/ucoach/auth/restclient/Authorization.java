@@ -14,8 +14,8 @@ public class Authorization {
 		
 		// Get valid authorization key from Environment
     String validAuthKey = AUTHORIZATION_KEY;
-    if (String.valueOf(System.getenv("EXTERNALL_DATA_AUTH_KEY")) != "null"){
-    	validAuthKey = String.valueOf(System.getenv("EXTERNAL_DATA_AUTH_KEY"));
+    if (String.valueOf(System.getenv("DATA_AUTH_KEY")) != "null"){
+    	validAuthKey = String.valueOf(System.getenv("DATA_AUTH_KEY"));
     }
 
     builder.header("Authorization", validAuthKey);

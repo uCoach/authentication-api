@@ -142,6 +142,6 @@ public class ClientApp {
 	 * @return
 	 */
     private static URI getBaseURI() {
-        return UriBuilder.fromUri("http://192.168.0.100:5000/data/").build();
+        return UriBuilder.fromUri("https://ucoach-data-service.herokuapp.com/data/").build();
     }
 }
