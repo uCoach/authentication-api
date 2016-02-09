@@ -90,7 +90,6 @@ public class AuthToken implements Serializable{
 	            "SELECT at FROM AuthToken at WHERE at.token = :token ORDER BY at.id DESC")
 	            .setParameter("token", token).setMaxResults(1)
 	            .getSingleResult();
-	             System.out.println(at);
 	        }catch(Exception e){
 	            System.out.println("Error"+e);
 	            return null;
@@ -107,7 +106,7 @@ public class AuthToken implements Serializable{
 	        try{
 	        	//SELECT THE LAST ENTRY WITH THE GIVEN USER ID AND TOKEN
 	             at = (AuthToken) em.createQuery(        
-	            "SELECT at FROM AuthToken at WHERE at.uId = :pID AND at.token = :token ORDER BY at.id DESC")
+	            "SELECT at FROM AuthToken at WHERE at.userid = :pID AND at.token = :token ORDER BY at.id DESC")
 	            .setParameter("pID", personId)
 	            .setParameter("token", token).setMaxResults(1)
 	            .getSingleResult();
@@ -170,9 +169,12 @@ public class AuthToken implements Serializable{
 	    return t;
 	}
 	
-	public static void removeAuthToken(AuthToken t) {
+	public static void removeAuthToken(AuthToken t) throws Exception{
 		EntityManager em = AuthDao.instance.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
+		System.out.println(t.id);
+		System.out.println(t.token);
+		System.out.println(t.userid);
 		tx.begin();
 	    t=em.merge(t);
 	    em.remove(t);

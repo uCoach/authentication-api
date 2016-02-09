@@ -31,11 +31,17 @@ public class VerifyToken {
 	
 	@GET
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    public RestToken getPerson(@PathParam("token") String token) {
-        RestToken rt = new RestToken();
+    public Response getPerson(@PathParam("token") String token) {
+		long userID;
+		try{
+        	userID = AuthToken.getIdPersonByToken(token).getUserid();
+        }catch(Exception e){
+        	return Response.status(404).build();
+        }        
+		RestToken rt = new RestToken();
         rt.setToken(token);
-        rt.setId(""+AuthToken.getIdPersonByToken(token).getUserid());
-		return rt;
+        rt.setId(""+userID);
+		return Response.accepted(rt).build();
     }
 	
 	@POST
